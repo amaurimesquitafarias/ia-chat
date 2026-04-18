@@ -1,16 +1,12 @@
-import os
 import requests
 import streamlit as st
-from dotenv import load_dotenv
 
-load_dotenv()
-
-API_KEY = os.getenv("GEMINI_API_KEY")
+API_KEY = st.secrets["GEMINI_API_KEY"]
 DEFAULT_MODEL = "gemini-1.5-mini"
 
-if API_KEY is None:
+if "GEMINI_API_KEY" not in st.secrets:
     st.error(
-        "A chave da API Gemini não foi encontrada. Crie um arquivo .env com GEMINI_API_KEY=<sua_chave>."
+        "A chave da API Gemini não foi encontrada. Configure a chave nos secrets do Streamlit (Arquivo .streamlit/secrets.toml)."
     )
     st.stop()
 
